@@ -24,7 +24,7 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         x = Input.GetAxisRaw("Horizontal");
-        if (Input.GetKeyDown(KeyCode.Space)) onSpace = true;
+        if (isGround && Input.GetKeyDown(KeyCode.Space)) onSpace = true;
 
     }
 
@@ -41,5 +41,6 @@ public class PlayerController : MonoBehaviour
         isGround = gc.IsGround();
         if (isGround == true) onSpace = false;
         Debug.Log(isGround);
+        Debug.Log(onSpace);
     }
 }
