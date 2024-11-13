@@ -13,6 +13,7 @@ public class CameraContoller : MonoBehaviour
     {
         prePos = player.transform.position;
         transform.position = initPos;
+
     }
 
     // Update is called once per frame
@@ -23,4 +24,5 @@ public class CameraContoller : MonoBehaviour
         transform.position = Vector3.Lerp(transform.position, transform.position + diff, 1.0f);
         prePos = curPos;
     }
+
 }
