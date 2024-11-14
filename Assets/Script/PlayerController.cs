@@ -11,8 +11,6 @@ public class PlayerController : MonoBehaviour
     private float x, y;
     public bool isGround, isFalling, isJumping;
     private bool preGround;
-    private bool JumpStarted = false;
-    private int cooldown = 10;
 
     // Start is called before the first frame update
     void Start()
@@ -28,13 +26,7 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         x = Input.GetAxisRaw("Horizontal");
-        if (isGround && Input.GetKeyDown(KeyCode.Space))
-        {
-            isJumping = true;
-            // JumpStarted = true;
-            cooldown = 10;
-        }
-
+        if (isGround && Input.GetKeyDown(KeyCode.Space)) isJumping = true;
     }
 
     void FixedUpdate()
@@ -47,24 +39,14 @@ public class PlayerController : MonoBehaviour
         }
         // 移動する向きとスピードを代入する
         rb.velocity = new Vector2(x * speed, rb.velocity.y);
-
-        // ジャンプした場合，接地判定を1サイクル待機
-        // if (!JumpStarted) isGround = gc.IsGround();
-        // else JumpStarted = false;
-        // if (cooldown > 0) cooldown--;
-        // else isGround = gc.IsGround();
-        if (!isGround && !isJumping) isFalling = true;
-        isGround = gc.IsGround();
-
-        // 着地判定
-        if (isGround && !preGround)
+        
+        isGround = gc.IsGround();   // 接地判定
+        if (!isGround && !isJumping) isFalling = true;  // 落下判定
+        if (isGround && !preGround) // 着地判定
         {
             isJumping = false;
             isFalling = false;
         }
         preGround = isGround;
-
-        Debug.Log("isGround: " + isGround);
-        Debug.Log("isJumping: " + isJumping);
     }
 }
