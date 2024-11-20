@@ -5,6 +5,8 @@ using UnityEngine;
 public class WallController : MonoBehaviour
 {
     [SerializeField] GameObject player;
+    [SerializeField] GameObject windowManager;
+    private WindowManager wms;
     public Vector2 speed;
     private Vector3 prePos;
     private Vector3 curPos;
@@ -13,6 +15,8 @@ public class WallController : MonoBehaviour
     void Start()
     {
         prePos = player.transform.position;
+        windowManager = GameObject.Find("WindowManager");
+        wms = windowManager.GetComponent<WindowManager>();
     }
 
     // Update is called once per frame
@@ -21,7 +25,8 @@ public class WallController : MonoBehaviour
         curPos = player.transform.position;
         diff = new Vector3(0, curPos.y - prePos.y, 0);
         transform.position = Vector3.Lerp(transform.position, transform.position + diff, 1.0f);
-        transform.Translate(speed * Time.deltaTime);
         prePos = curPos;
+
+        if (!wms.pwflag) transform.Translate(speed * Time.deltaTime);
     }
 }
