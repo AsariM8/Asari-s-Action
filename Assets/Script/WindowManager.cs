@@ -15,20 +15,22 @@ public class WindowManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape)) PauseWindowControll();
+    }
+
+    public void PauseWindowControll()
+    {
+        if (pwflag)
         {
-            if (pwflag)
-            {
-                PauseWindow.SetActive(false);
-                pwflag = false;
-                Time.timeScale = 1;
-            }
-            else
-            {
-                PauseWindow.SetActive(true);
-                pwflag = true;
-                Time.timeScale = 0;
-            }
+            PauseWindow.SetActive(false);
+            pwflag = false;
+            Time.timeScale = 1;
+        }
+        else
+        {
+            PauseWindow.SetActive(true);
+            pwflag = true;
+            Time.timeScale = 0;
         }
     }
 }
